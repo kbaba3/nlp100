@@ -1,5 +1,20 @@
-#!/bin/bash -vux
+##!/bin/bash -vux 
+#!/bin/bash
 
-Str="Hi He Lied Because Boron Could Not Oxidize Fluorine. New Nations Might Also Sign Peace Security Clause. Arthur King Can"
+Str="Hi He Lied Because Boron Could Not Oxidize Fluorine. New Nations Might Also Sign Peace Security Clause. Arthur King Can".
 
-.
+Nnum=( `echo $Str | tr ' ' '\n'` )
+
+lines=`echo $Str | tr ' ' '\n'| wc -l`
+
+for i in `seq 0 $((lines -1 ))`
+do
+  echo $i | egrep -w '0|4|5|6|7|8|14|15|18' > /dev/null
+  RC=`echo $?`
+  if [ $RC == 0 ]; then
+    echo $i ${Nnum[$i]} ${Nnum[$i]::1}
+  else
+    echo $i ${Nnum[$i]} ${Nnum[$i]::2}
+  fi
+done 
+
