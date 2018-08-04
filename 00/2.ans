@@ -1,0 +1,11 @@
+#!/bin/bash -vux 
+
+Str="stressed"
+
+echo $Str | 
+grep -o '.' | 
+cat -n | 
+sort -nr | 
+cut -f 2 | 
+sed -z "s/\n//g" |
+sed -e "s/\$/\n/"
