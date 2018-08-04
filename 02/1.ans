@@ -1,0 +1,19 @@
+##!/bin/bash -vux
+#!/bin/bash
+
+
+Str1="パトカー"
+Str2="タクシー"
+
+STR1=(`echo $Str1 | grep -o '.'`)
+STR2=(`echo $Str2 | grep -o '.'`)
+nend=$((`echo $Str1 | wc -m` - 2 ))
+for i in `seq 0 $nend`
+  do 
+    echo ${STR1[$i]} ${STR2[$i]} | 
+    sed -z "s/\n//g" | 
+    sed -e "s/ //g" 
+    done
+
+    echo 
+

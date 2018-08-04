@@ -1,0 +1,7 @@
+#!/bin/bash -uvx
+
+
+Str="パタトクカシーー"
+
+echo $Str | cut -c 1,3,5,7
+

@@ -1,0 +1,15 @@
+##!/bin/bash -vux 
+#!/bin/bash
+
+Str="Now I need a drink, alcoholic of course, after the heavy lectures involving quantum mechanics."
+
+echo $Str |
+tr ' ' '\n' 
+sed -e 's/[^A-z]//g' | 
+
+while read line
+  do 
+    echo $line,$((`echo $line | wc -m` - 1 )) |
+    column -t -s','
+  done
+
