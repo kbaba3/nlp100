@@ -1,0 +1,43 @@
+X :
+ad
+ap
+ar
+di
+is
+pa
+ra
+se
+
+Y :
+ag
+ap
+ar
+gr
+pa
+ph
+ra
+
+X∪ Y :
+ad
+ag
+ap
+ar
+di
+gr
+is
+pa
+ph
+ra
+se
+
+X∩ Y :
+ap
+ar
+pa
+ra
+
+X-Y :(X∪ Y - Y)
+ad
+di
+is
+se
