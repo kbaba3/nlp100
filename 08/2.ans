@@ -1,0 +1,63 @@
+###################
+#08. 暗号文
+#
+#与えられた文字列の各文字を，以下の仕様で変換する関数cipherを実装せよ．
+#
+# 英小文字ならば(219 - 文字コード)の文字に置換
+# その他の文字はそのまま出力
+#
+#この関数を用い，英語のメッセージを暗号化・復号化せよ．
+###################
+
+#!/bin/bash -vux
+
+echo "Enter sentence:"
+read Str
+
+echo "Ch D F"
+
+echo $Str | 
+sed s/"."/"&\n"/g |
+for i in `xargs -0`
+  do 
+
+    ASCIInum=(`echo $(printf "%3d" \"$i) |
+    awk '{printf "%3d\n",$1}'`)
+
+    if [ ${ASCIInum[$i]} -ge 97 ]; then
+      echo -n $i ${ASCIInum[$i]} $(( 219 - $ASCIInum ))
+      echo $(( 219 - $ASCIInum )) | 
+      xargs -- printf '%02x\n' | 
+      xargs --replace=@ -- printf ' \x@\n'
+      else
+        echo -n $i ${ASCIInum[$i]} ${ASCIInum[$i]}
+        echo ${ASCIInum[$i]} |
+        xargs -- printf '%02x\n' |
+        xargs --replace=@ -- printf ' \x@\n'
+        fi #| 
+
+# sed "s/ /\t/g" |
+# cut -f 4
+
+done
+
+#od ver############
+#!/bin/bash -vux
+
+#function cipher () {
+#Snum=`echo $Str | wc -m`
+#Cstr=(`echo $Str | grep -o "."`)
+#
+#for i in `seq 0 $(($Snum -2 ))`
+# do
+# echo ${Cstr[$i]} |
+# od -A n -t d1 | unexpand -a | cut -f 1
+# done
+#}
+#
+#echo "Enter sentence:"
+#read Str
+#
+#cipher
+#
+

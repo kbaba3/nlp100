@@ -1,0 +1,24 @@
+###################
+#10. 行数のカウント
+#
+#行数をカウントせよ．確認にはwcコマンドを用いよ．
+###################
+
+#!/bin/bash -vux
+
+echo awk#######
+awk 'END{print NR}' $1
+
+echo wc########
+wc -l < $1
+
+
+echo Result####
+diff <(awk 'END{print NR}' $1) <(wc -l < $1)
+
+if [ $? = 0 ];then 
+  echo OK!
+  else
+    echo NG...
+    fi
+

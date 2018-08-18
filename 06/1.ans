@@ -1,0 +1,66 @@
+###################
+#06. 集合
+#
+#"paraparaparadise"と"paragraph"に含まれる文字bi-gramの集合を，
+#それぞれ, XとYとして求め，XとYの和集合，積集合，差集合を求めよ．
+#さらに，'se'というbi-gramがXおよびYに含まれるかどうかを調べよ．
+###################
+
+#!/bin/bash -vux
+
+StrX="paraparaparadise"
+StrY="paragraph"
+
+linex=(`
+echo $StrX |
+sed "s/ //g" |
+grep -o "." |
+sed -n 'N;p;D;' |
+paste - - -d '' | 
+sort | 
+uniq`)
+
+echo "X :"
+echo ${linex[@]} |
+sed "s/ /\n/g"
+
+liney=(`
+echo $StrY |
+sed "s/ //g" |
+grep -o "." |
+sed -n 'N;p;D;' |
+paste - - -d '' | 
+sort | 
+uniq`)
+
+echo
+echo "Y :"
+echo ${liney[@]} |
+sed "s/ /\n/g"
+
+echo
+echo "X∪ Y :"
+
+echo ${linex[@]} ${liney[@]} | 
+sed "s/ /\n/g" | 
+sort -u
+
+echo
+echo "X∩ Y :"
+
+echo ${linex[@]} ${liney[@]} | 
+sed "s/ /\n/g" | 
+sort | 
+uniq -d
+
+echo
+echo "X-Y :(X∪ Y - Y)"
+
+(echo ${linex[@]} ${liney[@]} | 
+sed "s/ /\n/g" | 
+sort -u;
+echo ${liney[@]} | 
+sed "s/ /\n/g") | 
+sort | 
+uniq -u
+

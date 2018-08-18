@@ -1,0 +1,54 @@
+#############################
+#12. 1列目をcol1.txtに，2列目をcol2.txtに保存
+#
+#各行の1列目だけを抜き出したものをcol1.txtに，2列目だけを抜き出したものをcol2.txt
+#としてファイルに保存せよ．確認にはcutコマンドを用いよ．
+#############################
+
+#!/bin/bash -vux
+
+echo awk################
+
+#awk '{
+# for(i=1;i<3;i++){
+# print i "\t" $i |
+# awk '{
+# if(($1%2)==0) 
+# print$2 > "field2.txt" ; 
+# else print $2 > "field1.txt";
+# }'
+# }
+#}' 
+
+awk '{
+  for(i=1;i<3;i++){
+    print i " " $i 
+  }
+}' $1 |
+
+awk '{
+  if(($1%2)==0)
+    print $2 > "col2.txt";
+    else 
+      print $2 > "col1.txt";
+}'
+cat col*.txt
+
+echo cut################
+for i in 1 2
+  do
+    cut -f $i < $1 > cut_"$i".txt
+    done
+    cat cut_*.txt
+
+    echo Result#############
+    for i in 1 2
+      do
+        diff col"$i".txt cut_"$i".txt
+        if [ $? = 0 ];then
+          echo col"$i" is OK!
+          else
+            echo col"$i" is NG...
+            fi
+            done
+

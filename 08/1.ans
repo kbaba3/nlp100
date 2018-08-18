@@ -1,0 +1,47 @@
+###################
+#08. 暗号文
+#
+#与えられた文字列の各文字を，以下の仕様で変換する関数cipherを実装せよ．
+#
+# 英小文字ならば(219 - 文字コード)の文字に置換
+# その他の文字はそのまま出力
+#
+#この関数を用い，英語のメッセージを暗号化・復号化せよ．
+###################
+
+#!/bin/bash -vux
+
+function cipher () {
+  Snum=$(( `echo $Str | wc -m` - 1 ))
+  Cstr=(`echo $Str | grep -o "."`)
+
+  echo Char Dec Enc Char
+
+  for i in `seq 0 $(($Snum - 1 ))`
+    do
+      echo -n ${Cstr[$i]} ""
+      ASCIInum=`echo ${Cstr[$i]} |
+      od -A n -t d1 | 
+      unexpand -a | 
+      cut -f 1`
+
+      if [ $ASCIInum -ge 97 ]; then
+        echo -n $ASCIInum $(( 219 - $ASCIInum ))
+        echo $(( 219 - $ASCIInum )) |
+        xargs -- printf '%02x\n' |
+        xargs --replace=@ -- printf ' \x@\n'
+        else
+          echo -n $ASCIInum $ASCIInum 
+          echo $ASCIInum |
+          xargs -- printf '%02x\n' |
+          xargs --replace=@ -- printf ' \x@\n' 
+          fi
+
+          done
+}
+
+echo "Enter sentence:"
+read Str
+
+cipher
+

@@ -1,0 +1,62 @@
+###################
+#09. Typoglycemia
+#
+#スペースで区切られた単語列に対して，各単語の先頭と末尾の文字は残し，
+#それ以外の文字の順序をランダムに並び替えるプログラムを作成せよ．
+#ただし，長さが４以下の単語は並び替えないこととする．
+#適当な英語の文（例えば
+#"I couldn't believe that I could actually understand 
+#what I was reading : the phenomenal power of the human mind ."）を与え，
+#その実行結果を確認せよ．
+###################
+
+#!/bin/bash -vux
+
+
+Str="I couldn't believe that I could actually understand what I was reading : the phenomenal power of the human mind ."
+
+Word=(`echo $Str`)
+WC=`echo $Str | wc -w`
+
+for i in `seq 0 $(($WC - 1))`
+  do 
+    if [ $i != $(($WC - 1 )) ];then
+
+      ccount=$((`echo ${Word[$i]} | 
+      wc -m` - 1))
+
+
+      if [ $ccount -gt 4 ]; then
+
+        Char=(`echo ${Word[$i]} | 
+        grep -o "."`) 
+        Char1=(`echo ${Char[0]} ${Char[$(( $ccount - 1 ))]}`)
+        unset Char[0]
+        unset Char[$(( $ccount - 1 ))]
+
+        Char2=(`echo ${Char[@]} |
+        sed "s/ /\n/g" | 
+        sort -R`)
+
+        echo -n ${Char1[0]}
+
+        for ii in `seq 0 $(($ccount - 2))`
+          do
+            echo -n ${Char2[$ii]} 
+            done
+
+            echo -n ${Char1[1]} ""
+
+            else
+
+              echo -n ${Word[$i]} ""
+
+              fi
+
+              else
+
+                echo ${Word[$i]} 
+
+                fi
+                done
+

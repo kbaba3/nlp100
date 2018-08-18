@@ -1,0 +1,30 @@
+###################
+#11. タブをスペースに置換
+#
+#タブ1文字につきスペース1文字に置換せよ．確認にはsedコマンド，trコマンド，
+#もしくはexpandコマンドを用いよ．
+###################
+
+#!/bin/bash -vux
+
+echo awk#################
+awk '{if (gsub(/\t/," ")) print }' $1
+
+echo sed#################
+sed "s/\t/ /g" $1
+
+echo Result##############
+diff <(awk '{if (gsub(/\t/," ")) print }' $1) <(sed "s/\t/ /g" $1)
+
+if [ $? = 0 ];then 
+  echo OK!
+  else
+    echo NG...
+    fi
+
+#echo tr##################
+#tr '\t' ' ' < $1
+
+#echo expand##############
+#expand -t 1 $1
+

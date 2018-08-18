@@ -1,0 +1,30 @@
+#############################
+#15. 末尾のN行を出力
+#
+#自然数Nをコマンドライン引数などの手段で受け取り，
+#入力のうち末尾のN行だけを表示せよ．確認にはtailコマンドを用いよ．
+#############################
+
+#!/bin/bash -vux
+
+echo awk#################
+awk -v i=$2 '{
+  A[NR%i] = $0
+}
+END{
+  for (ii=0; ii<i; ii++)
+    print A[(NR+ii+1)%i]
+}' $1
+
+echo tail################
+tail -$2 $1
+
+echo Result##############
+diff <(awk -v i=$2 '{A[NR%i] = $0}END{for (ii=0; ii<i; ii++)print A[(NR+ii+1)%i]}' $1) <(tail -$2 $1)
+
+if [ $? = 0 ];then
+  echo OK!
+  else
+    echo NG... 
+    fi
+
